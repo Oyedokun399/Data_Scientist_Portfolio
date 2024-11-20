@@ -1,0 +1,40 @@
+1. 
+SELECT p.Product_Category, p.Product_Price, p.Product_Cost, (p.Product_Price - p.Product_Cost) as Profit, s.Store_Location
+FROM 
+	Product AS p
+RIGHT JOIN 
+	Stores As s
+ON
+	p.Product_Id = s.Store_ID
+ORDER BY Profit DESC
+LIMIT 1;
+
+
+2. SELECT SUM(total) 
+FROM (SELECT p.Product_Category, p.Product_Name, SUM(i.Stock_on_Hand) AS total, s.Store_Name
+FROM 
+	Product AS p
+LEFT JOIN
+	Stores AS s
+ON
+	p.Product_Id = s.Store_ID
+RIGHT JOIN 
+	Inventory As i
+ON
+	i.Stock_Id = s.Store_ID
+WHERE p.Product_Category = 'Toys'
+GROUP BY Product_Category, Product_Name, Store_Name);
+
+3. SELECT p.Product_Category, p.Product_Name, i.Stock_on_Hand, s.Store_Location
+FROM 
+	Product AS p
+LEFT JOIN
+	Stores AS s
+ON
+	p.Product_Id = s.Store_ID
+RIGHT JOIN 
+	Inventory As i
+ON
+	i.Stock_Id = s.Store_ID
+WHERE i.Stock_on_Hand < '1'
+GROUP BY Product_Category, Product_Name, Store_Location, Stock_on_Hand;

@@ -1,0 +1,20 @@
+SELECT * FROM pizza
+
+
+COPY Public.pizza FROM 'C:\Program Files\PostgreSQL\16\bin\pizzas-230126-095340.csv' DELIMITER ',' CSV HEADER ;
+
+
+
+1. SELECT
+DISTINCT
+pizza_id
+quantity
+from 
+"order_details"
+WHERE pizza_id LIKE 's%'
+ORDER BY quantity DESC;
+
+2. SELECT pizza_id, price
+FROM "pizza"
+WHERE price > (SELECT AVG(price) FROM pizza)
+ORDER BY price DESC;
